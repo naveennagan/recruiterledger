@@ -24,10 +24,40 @@ const mapDispatchToProps = (dispatch) => {
       // if loggedin set loggedin status
 
     },
-    componentMounted: () => {
+    componentMounted: async () => {
       let mountedAction = {
-        type: "MOUNTED"
+        type: "VERIFIYING"
       }
+
+      dispatch(mountedAction);
+
+      mountedAction = {
+        type: "VERIF",
+        user: {}
+      }
+
+      if(sessionStorage && sessionStorage.getItem("apptoken")){
+       // localStorage.setItem("lastname", "Smith");  
+       let token = sessionStorage.getItem("apptoken");
+       let verifyOptions = {
+             url:'/app/verify',
+             data: { token}
+          }
+        let verifiedResponse = await apiService.makePostCall(verifyOptions);
+        if(verifiedResponse.status){
+          mountedAction = {
+            type: "VERIFIED",
+            user: verifiedResponse.data
+          }
+        }
+        else{
+          mountedAction = {
+            type: "VERIF",
+            user: {}
+          }
+        }
+      }
+
       dispatch(mountedAction);
     },
 
@@ -53,6 +83,7 @@ const mapDispatchToProps = (dispatch) => {
             user: loginResponse.user
           }
         }
+        sessionStorage.setItem("apptoken",loginResponse.token);
       }else{
         loggedInAction = {
           type: "LOGG",
