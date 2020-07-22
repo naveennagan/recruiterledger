@@ -39,7 +39,7 @@ class HomeComponent extends Component {
 
   render() {
     return (
-      <div>
+      <div className={"container"}>
         {_.get(this.props,"logstatus.status") === 'Loggedin' ? 
           <DashboardComponent user={_.get(this.props,"logstatus.user")} /> : <LoginComponent register={this.register} login={this.login} logstatus={this.props.logstatus}/>}
       </div>

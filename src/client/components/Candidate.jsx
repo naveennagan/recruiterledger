@@ -1,10 +1,15 @@
 import React, {Component} from 'react';
 import _ from 'lodash';
+import CandidateModalComponent from './CandidateModal';
 
 class CandidateComponent extends Component{
     constructor(props){
         super(props);
+        this.state = {
+            showDetails: false
+        }
         this.getCandidatePreview = this.getCandidatePreview.bind(this);
+        this.getModalView = this.getModalView.bind(this);
     }
 
     getCandidatePreview(){
@@ -25,15 +30,22 @@ class CandidateComponent extends Component{
                 })
             }
           </p>
-          <a href="javascript:void(0);" class="btn btn-primary">Show</a>
+          <a href="javascript:void(0);" class="btn btn-primary" onClick={()=>{
+              this.setState({showDetails:true})
+          }}>Show</a>
         </div>
       </div> : ""
+    }
+
+    getModalView(){
+        return this.state.showDetails ? <CandidateModalComponent user={this.props.user} onClose={()=>{ this.setState({showDetails: false})}}/> : "";
     }
 
     render(){
        return (
             <div class="col candidate">
                 {this.getCandidatePreview()}
+                {this.getModalView()}
             </div>
        )
     }

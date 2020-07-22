@@ -11,9 +11,10 @@ let mongoClient = {
         let connectStatus = await client.connect();
         let dbs = await client.db().admin().listDatabases();
         console.log(dbs);
-        return {status: "Mongo connected!"};
+        return {status:true, message:"Mongo connected!"};
        }catch(e){
-           return {status: "Mongo cannot be connected to !"};
+           console.log(e);
+           return {status: false, message: "Mongo cannot be connected to !"};
        }
     },
     getClient:()=>{

@@ -23,7 +23,13 @@ app.listen(3124, function () {
 
 function initApp(){
   mongoService.connect().then((success)=>{
-    console.log("App init!");
+    if(success.status){
+      console.log(success.message);
+      console.log("App init!");
+    }else{
+      console.log(success.message);
+      process.exit(0);
+    }
   },(error)=>{
     console.log("Init app down!");
     console.log(error);
