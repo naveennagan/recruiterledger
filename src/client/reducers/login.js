@@ -26,6 +26,6 @@ export default (state = {}, action = { type: "",data:{} }) => {
       case 'REGISTERED_STOPPED':
         return { status: "Registered stopped", user: {} }      
       default:
-        return { status: "Please Login/Register", user: {} }
+        return state
     }
   }

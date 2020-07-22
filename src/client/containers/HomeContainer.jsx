@@ -9,7 +9,10 @@ import apiService from '../services/apiService';
 const mapStateToProps = (state) => {
   return {
     name: state.home.name,
-    logstatus: state.login
+    logstatus: state.login,
+    resumes: state.user,
+    pending: state.pending,
+    confirm: 'CONFIRM'
   }
 }
 
@@ -26,7 +29,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     componentMounted: async () => {
       let mountedAction = {
-        type: "VERIFIYING"
+        type: "VERIFYING"
       }
 
       dispatch(mountedAction);
@@ -124,8 +127,71 @@ const mapDispatchToProps = (dispatch) => {
       }
      
       dispatch(registerAction);
+    },
+
+    getVerifiedResumes: async () =>{
+      let resumeAction = {
+        type: "FETCHING_RESUMES"
+      }
+      dispatch(resumeAction);
+
+      let token = sessionStorage.getItem("apptoken");
+      
+      let resumeOptions = {
+        url : '/user/verified',
+        data: { token }
+      }
+
+      let resumeResponse = await apiService.makePostCall(resumeOptions);
+
+      if(resumeResponse.status){
+        resumeAction = {
+          type: "FETCHED_RESUMES",
+          data: resumeResponse.results
+        }
+      }
+      else{
+        resumeAction = {
+          type: "FETCH",
+        }
+      }
+     
+      dispatch(resumeAction);
+
+    },
+
+    getPendingResumes: async () =>{
+      let resumeAction = {
+        type: "FETCHING_PENDING"
+      }
+      dispatch(resumeAction);
+
+      let token = sessionStorage.getItem("apptoken");
+      
+      let resumeOptions = {
+        url : '/user/pending',
+        data: { token }
+      }
+
+      let resumeResponse = await apiService.makePostCall(resumeOptions);
+
+      if(resumeResponse.status){
+        resumeAction = {
+          type: "FETCHED_PENDING",
+          data: resumeResponse.results
+        }
+      }
+      else{
+        resumeAction = {
+          type: "FETCH",
+        }
+      }
+     
+      dispatch(resumeAction);
+
     }
 
+  
 
   }
 }

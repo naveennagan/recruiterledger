@@ -35,13 +35,18 @@ class HomeComponent extends Component {
       this.props.register(username,password,role);
     }
   }
+  
 
 
   render() {
     return (
       <div className={"container"}>
         {_.get(this.props,"logstatus.status") === 'Loggedin' ? 
-          <DashboardComponent user={_.get(this.props,"logstatus.user")} /> : <LoginComponent register={this.register} login={this.login} logstatus={this.props.logstatus}/>}
+          <DashboardComponent user={_.get(this.props,"logstatus.user")}  
+            resumes={_.get(this.props,"resumes.resumes")}
+            pending={_.get(this.props,"pending.pending")}  
+            getVerifiedResumes= {this.props.getVerifiedResumes}
+            getPendingResumes={this.props.getPendingResumes} /> : <LoginComponent register={this.register} login={this.login} logstatus={this.props.logstatus}/>}
       </div>
     )
   }

@@ -12,9 +12,13 @@ app.use(bodyParser.json());
 
 var loginRoutes = require('./routes/login');
 
+var userRoutes = require('./routes/user');
+
 var mongoService = require('./databases/mongo');
 
 app.use("/app", loginRoutes);
+
+app.use("/user", userRoutes);
 
 app.listen(3124, function () {
   initApp();
