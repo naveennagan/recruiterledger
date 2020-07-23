@@ -47,6 +47,7 @@ let expService = {
          if(claim.points >= 100){
             let exp = await mongoClient.db("ledger").collection("experience")
             .findOne({ name: claim.name });
+            console.log(exp);
             exp.company = claim.claim;
             let companies = exp.experience;
             if(companies.indexOf(claim.claim) == -1){
