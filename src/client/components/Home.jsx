@@ -45,6 +45,8 @@ class HomeComponent extends Component {
           <DashboardComponent user={_.get(this.props,"logstatus.user")}  
             resumes={_.get(this.props,"resumes.resumes")}
             pending={_.get(this.props,"pending.pending")}  
+            onSave = {this.props.onSave}
+            onVerify = {this.props.onVerify}
             getVerifiedResumes= {this.props.getVerifiedResumes}
             getPendingResumes={this.props.getPendingResumes} /> : <LoginComponent register={this.register} login={this.login} logstatus={this.props.logstatus}/>}
       </div>

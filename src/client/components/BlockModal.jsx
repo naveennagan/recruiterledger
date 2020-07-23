@@ -30,7 +30,7 @@ class BlockModalComponent extends Component{
     }
 
     verifyBlock(){
-        this.props.onClose && this.props.onClose();
+        this.props.onClose && this.props.onVerify(this.props.user);
     }
 
     getModalView(){
@@ -38,7 +38,7 @@ class BlockModalComponent extends Component{
         let userPoints = _.get(this.props,"user.points");
         let userCompany = _.get(this.props,"user.claim");
 
-        return  <div class="modal fade show" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        return  <div class="modal fade show" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">

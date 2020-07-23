@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import CandidateComponent from './Candidate';
 import BlockComponent from './Block';
+import AddExpModal from './AddExpModal';
 class DashboardComponent extends Component {
 
   constructor(props) {
@@ -55,7 +56,8 @@ class DashboardComponent extends Component {
           "claim": "Groupon",
           "points": 20
         }
-      ]
+      ],
+      showAddModal: false
     }
     this.getVerifiedResumes = this.getVerifiedResumes.bind(this);
     this.getClaims = this.getClaims.bind(this);
@@ -91,7 +93,8 @@ class DashboardComponent extends Component {
         <div class="row">
           {
             (this.props.pending || []).map((candidate)=>{
-                return <BlockComponent user={candidate} />
+                return <BlockComponent  onVerify={this.props.onVerify}
+                user={candidate} />
             })
           }
         </div>
@@ -100,6 +103,12 @@ class DashboardComponent extends Component {
 
   getCurrent(){
     return this.state.currentView === "VERIFIED" ? this.getVerifiedResumes(): this.getClaims();
+  }
+
+  getAddModalView(){
+    return this.state.showAddModal ? <AddExpModal user={this.props.user} onSave = {this.props.onSave} onClose={()=>{
+            this.setState({showAddModal: false})
+    }} /> : ""
   }
 
   render() {
@@ -121,10 +130,13 @@ class DashboardComponent extends Component {
                 href="javascript:void(0);">Pending</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="javascript:void(0);">Add</a>
+                <a class="nav-link" href="javascript:void(0);" onClick={()=>{
+                  this.setState({showAddModal:true});
+                }}>Add</a>
               </li>
             </ul>
             {this.getCurrent()}
+            {this.getAddModalView()}
           </div>
       </div>
     )

@@ -16,7 +16,7 @@ class CandidateModalComponent extends Component{
         let userExperience = _.get(this.props,"user.experience",[]);
         let userCompany = _.get(this.props,"user.company");
 
-        return  <div class="modal fade show" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        return  <div class="modal fade show" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">

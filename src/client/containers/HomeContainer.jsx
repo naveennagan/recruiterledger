@@ -17,7 +17,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {
+  let dispatchProps = {
     componentMounting: () => {
       let mountingAction = {
         type: "MOUNTING"
@@ -189,11 +189,69 @@ const mapDispatchToProps = (dispatch) => {
      
       dispatch(resumeAction);
 
+    },
+
+    onSave: async (claim)=>{
+      let resumeAction = {
+        type: "CLAIM_SAVING"
+      }
+      dispatch(resumeAction);
+
+      let token = sessionStorage.getItem("apptoken");
+      
+      let resumeOptions = {
+        url : '/user/save',
+        data: { token, claim }
+      }
+
+      let resumeResponse = await apiService.makePostCall(resumeOptions);
+
+      if(resumeResponse.status){
+        resumeAction = {
+          type: "CLAIM_SAVED",
+          data: resumeResponse.results
+        }
+      }
+      else{
+        resumeAction = {
+          type: "CLAIM",
+        }
+      }
+      dispatchProps.getPendingResumes();
+    },
+
+    onVerify: async (claim)=>{
+      let resumeAction = {
+        type: "VERIFYING_CLAIM"
+      }
+      dispatch(resumeAction);
+
+      let token = sessionStorage.getItem("apptoken");
+      
+      let resumeOptions = {
+        url : '/user/verify',
+        data: { token, claim }
+      }
+
+      let resumeResponse = await apiService.makePostCall(resumeOptions);
+
+      if(resumeResponse.status){
+        resumeAction = {
+          type: "VERIFIED_CLAIM",
+          data: resumeResponse.results
+        }
+      }
+      else{
+        resumeAction = {
+          type: "CLAIM",
+        }
+      }
+      dispatchProps.getVerifiedResumes();
+      dispatchProps.getPendingResumes();
     }
 
-  
-
   }
+  return dispatchProps;
 }
 
 const HomeView = connect(mapStateToProps, mapDispatchToProps)(Home);

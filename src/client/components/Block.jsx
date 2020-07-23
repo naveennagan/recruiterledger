@@ -34,7 +34,7 @@ class BlockComponent extends Component{
     }
 
     getModalView(){
-        return this.state.showDetails ? <BlockModalComponent user={this.props.user} onClose={()=>{ this.setState({showDetails: false})}}/> : "";
+        return this.state.showDetails ? <BlockModalComponent user={this.props.user} onVerify={this.props.onVerify} onClose={()=>{ this.setState({showDetails: false})}}/> : "";
     }
 
     render(){
