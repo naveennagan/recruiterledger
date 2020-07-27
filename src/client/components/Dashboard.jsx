@@ -62,6 +62,7 @@ class DashboardComponent extends Component {
     this.getVerifiedResumes = this.getVerifiedResumes.bind(this);
     this.getClaims = this.getClaims.bind(this);
     this.getCurrent = this.getCurrent.bind(this);
+    this.logout = this.logout.bind(this);
   }
 
   componentDidMount() {
@@ -111,10 +112,18 @@ class DashboardComponent extends Component {
     }} /> : ""
   }
 
+  logout(){
+     if(sessionStorage && sessionStorage.getItem("apptoken")){
+       sessionStorage.removeItem("apptoken");
+       location.reload();
+     }
+  }
+
   render() {
     return (
       <div class="container dashboard">
-        { `You are logged in as ${_.get(this.props,"user.name")}`}
+        { `You are logged in as ${_.get(this.props,"user.name")} `}
+          <a href="javascript:void(0);" onClick={this.logout}>logout</a>
           <div class="row">
             <ul class="nav nav-pills">
               <li class="nav-item">

@@ -7,6 +7,16 @@ import apiService from '../services/apiService';
 // mapDispatchToProps
 
 const mapStateToProps = (state) => {
+  let loginState =  {
+    name: state.home.name,
+    logstatus: state.login,
+    resumes: state.user,
+    pending: state.pending,
+    confirm: 'CONFIRM'
+  };
+
+  console.log(JSON.stringify(loginState));
+
   return {
     name: state.home.name,
     logstatus: state.login,
