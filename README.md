@@ -1,8 +1,6 @@
 # Recruiterledger
 BlockChain powered recruiting system
 
-# Project Structure: 
-
 # Test Cases:
 1) npm run test
 
@@ -26,12 +24,12 @@ BlockChain powered recruiting system
 Upon starting server mongo connection is checked.
 
 # API's 
-  /app/verify : "Verify if user is logged in"
-  /app/login  : "Login the user"
-  /app/regiester : "Register a user"
+    /app/verify : "Verify if user is logged in"
+    /app/login  : "Login the user"
+    /app/regiester : "Register a user"
 
-  /user/verfied : "Get verfied data"
-  /user/pending : "Get data to be verified"
-  /user/verify  : "Verify a claim"
-  /user/save    : "Save a claim"
+    /user/verfied : "Get verfied data"
+    /user/pending : "Get data to be verified"
+    /user/verify  : "Verify a claim"
+    /user/save    : "Save a claim"
   
